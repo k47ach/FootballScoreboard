@@ -180,6 +180,20 @@ class ScoreboardTest {
             assertEquals(BRAZIL, activeMatches.get(0).getAwayTeam());
         }
 
+
+        @Test
+        void shouldFinishGamesCorrectlyDespiteInconsistentTrimmingAndLetterCase() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame("mExIcO ", "  canada");
+            scoreboard.startGame(SPAIN, BRAZIL);
+
+            scoreboard.finishGame(MEXICO, CANADA);
+            scoreboard.finishGame(" sPAIn ", " braZIl  ");
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertTrue(activeMatches.isEmpty());
+        }
+
         @Test
         void shouldThrowExceptionWhenFinishingGameWithEmptyName() {
             Scoreboard scoreboard = new Scoreboard();

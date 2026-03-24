@@ -5,8 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.football.scoreboard.ErrorMessageConstants.EMPTY_TEAM_NAME_ERROR_MESSAGE;
-import static org.football.scoreboard.ErrorMessageConstants.TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE;
+import static org.football.scoreboard.ErrorMessageConstants.*;
 
 public class ScoreboardValidator {
 
@@ -27,6 +26,12 @@ public class ScoreboardValidator {
     public static void validateIfTeamNamesNotEmpty(String homeTeam, String awayTeam) {
         if (StringUtils.isEmpty(homeTeam) || StringUtils.isEmpty(awayTeam)) {
             throw new IllegalArgumentException(EMPTY_TEAM_NAME_ERROR_MESSAGE);
+        }
+    }
+
+    public static void validateIfMatchExists(Map<String, Match> activeMatches, String homeTeam, String activeTeam) {
+        if (!activeMatches.containsKey(homeTeam + " - " + activeTeam)) {
+            throw new IllegalArgumentException(MATCH_NOT_FOUND_ERROR_MESSAGE);
         }
     }
 }

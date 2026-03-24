@@ -7,8 +7,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static org.football.scoreboard.ErrorMessageConstants.EMPTY_TEAM_NAME_ERROR_MESSAGE;
-import static org.football.scoreboard.ErrorMessageConstants.TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE;
+import static org.football.scoreboard.ErrorMessageConstants.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ScoreboardTest {

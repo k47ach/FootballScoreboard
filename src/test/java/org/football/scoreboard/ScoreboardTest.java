@@ -23,4 +23,16 @@ class ScoreboardTest {
         assertEquals("Spain", activeMatches.get(1).getHomeTeam());
         assertEquals("Brazil", activeMatches.get(1).getAwayTeam());
     }
+
+    @Test
+    void shouldStartGameWithDefaultScore() {
+        Scoreboard scoreboard = new Scoreboard();
+        scoreboard.startGame("Mexico", "Canada");
+
+        List<Match> activeMatches = scoreboard.getActiveMatches();
+
+        assertEquals(1, activeMatches.size());
+        assertEquals(0, activeMatches.get(0).getHomeTeamScore());
+        assertEquals(0, activeMatches.get(0).getAwayTeamScore());
+    }
 }

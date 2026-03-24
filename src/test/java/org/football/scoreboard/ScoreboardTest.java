@@ -121,4 +121,30 @@ class ScoreboardTest {
         assertEquals(SPAIN, activeMatches.get(0).getHomeTeam());
         assertEquals(BRAZIL, activeMatches.get(0).getAwayTeam());
     }
+
+    @Test
+    void shouldThrowExceptionWhenFinishingGameWithEmptyName() {
+        Scoreboard scoreboard = new Scoreboard();
+        scoreboard.startGame(MEXICO, CANADA);
+
+        Exception exception1 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.finishGame(MEXICO, "")
+        );
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.finishGame(MEXICO, null)
+        );
+        Exception exception3 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.finishGame("", CANADA)
+        );
+        Exception exception4 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.finishGame("", CANADA)
+        );
+
+        List<Match> activeMatches = scoreboard.getActiveMatches();
+        assertEquals(1, activeMatches.size());
+        assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception1.getMessage());
+        assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception2.getMessage());
+        assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception3.getMessage());
+        assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception4.getMessage());
+    }
 }

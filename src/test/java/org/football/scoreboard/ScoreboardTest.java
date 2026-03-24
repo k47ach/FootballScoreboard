@@ -48,10 +48,20 @@ class ScoreboardTest {
             scoreboard.startGame(MEXICO, CANADA);
 
             List<Match> activeMatches = scoreboard.getActiveMatches();
-
             assertEquals(1, activeMatches.size());
             assertEquals(0, activeMatches.get(0).getHomeTeamScore());
             assertEquals(0, activeMatches.get(0).getAwayTeamScore());
+        }
+
+        @Test
+        void shouldSanitiseTeamNamesOnGameStart() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame(" CanAdA", " BrazIl ");
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertEquals(1, activeMatches.size());
+            assertEquals("canada", activeMatches.get(0).getHomeTeam());
+            assertEquals("brazil", activeMatches.get(0).getAwayTeam());
         }
 
         @Test

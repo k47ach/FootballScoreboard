@@ -1,8 +1,11 @@
 package org.football.scoreboard;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Map;
 import java.util.Optional;
 
+import static org.football.scoreboard.ErrorMessageConstants.EMPTY_TEAM_NAME_ERROR_MESSAGE;
 import static org.football.scoreboard.ErrorMessageConstants.TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE;
 
 public class ScoreboardValidator {
@@ -21,6 +24,12 @@ public class ScoreboardValidator {
 
         if (alreadyActiveMatch.isPresent()) {
             throw new IllegalArgumentException(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE);
+        }
+    }
+
+    public static void validateIfTeamNamesNotEmpty(String homeTeam, String awayTeam) {
+        if (StringUtils.isEmpty(homeTeam) || StringUtils.isEmpty(awayTeam)) {
+            throw new IllegalArgumentException(EMPTY_TEAM_NAME_ERROR_MESSAGE);
         }
     }
 }

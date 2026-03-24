@@ -21,6 +21,8 @@ public class Scoreboard {
     }
 
     public void finishGame(String homeTeam, String awayTeam) {
+        ScoreboardValidator.validateIfTeamNamesNotEmpty(homeTeam, awayTeam);
+
         activeMatches.remove(homeTeam + " - " + awayTeam);
     }
 }

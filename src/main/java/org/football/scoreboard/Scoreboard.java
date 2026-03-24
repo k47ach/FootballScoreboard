@@ -13,9 +13,11 @@ public class Scoreboard {
     }
 
     public void startGame(String homeTeam, String awayTeam) {
+        ScoreboardValidator.validateIfTeamNamesNotEmpty(homeTeam, awayTeam);
+        ScoreboardValidator.validateIfTeamAlreadyAssigned(activeMatches, homeTeam, awayTeam);
+
         Match match = new Match(homeTeam, awayTeam);
 
-        ScoreboardValidator.validateIfTeamAlreadyAssigned(activeMatches, match);
 
         activeMatches.put(homeTeam + " - " + awayTeam, match);
     }

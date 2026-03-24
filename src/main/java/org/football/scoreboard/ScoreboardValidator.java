@@ -10,10 +10,7 @@ import static org.football.scoreboard.ErrorMessageConstants.TEAM_ALREADY_ASSIGNE
 
 public class ScoreboardValidator {
 
-    public static void validateIfTeamAlreadyAssigned(Map<String, Match> activeMatches, Match match) {
-        String homeTeam = match.getHomeTeam();
-        String awayTeam = match.getAwayTeam();
-
+    public static void validateIfTeamAlreadyAssigned(Map<String, Match> activeMatches, String homeTeam, String awayTeam) {
         Optional<Match> alreadyActiveMatch = activeMatches.values()
                 .stream()
                 .filter(el -> el.getHomeTeam().equalsIgnoreCase(homeTeam)

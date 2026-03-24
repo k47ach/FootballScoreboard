@@ -34,7 +34,7 @@ Clone the repository ```git clone https://github.com/k47ach/FootballScoreboard.g
 During the implementation, I decided to use ```LinkedHashMap``` instead of ```ArrayList``` to store Match objects.
 * ```LinkedHashMap``` enables O(1) access to the data.
 * ```LinkedHashMap``` preserves the insertion order of the data.
-* Keys for match object contain homeTeam and awayTeam, ensuring their uniqueness.
+* Keys for match object contain homeTeam and awayTeam, ensuring their uniqueness. homeTeam and awayTeam are trimmed and lowercased, leading to consistent retrieval of matches.
 
 ### Sorting
 Sorting games as per the acceptance criteria 4 has been accomplished in two steps: 
@@ -42,4 +42,5 @@ Sorting games as per the acceptance criteria 4 has been accomplished in two step
 2. The order of elements is then sorted by their score sum, reversed. Given that Stream.sorted is stable, we can safely assume that tied elements will remain unchanged. This is performed in O(n log n).
 
 ### Validation
-Input (starting, finishing and updating) operations are provided with basic validation to handle invalid data by throwing an exception with reason message. Validation has been extracted to another class to separate concerns and improve reusability and maintainability.
+* Input (starting, finishing and updating) operations are provided with basic validation to handle invalid data by throwing an exception with reason message. Validation has been extracted to another class to separate concerns and improve reusability and maintainability.
+* Names of teams are normalized on game start - trimmed, lowercased and then capitalized, ensuring correct match retrieval further down the road.

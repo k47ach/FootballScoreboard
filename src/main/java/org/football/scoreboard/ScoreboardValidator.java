@@ -12,10 +12,10 @@ public class ScoreboardValidator {
         String awayTeam = match.getAwayTeam();
 
         Optional<Match> alreadyActiveMatch = activeMatches.stream()
-                .filter(el -> el.getHomeTeam().equals(homeTeam)
-                        || el.getHomeTeam().equals(awayTeam)
-                        || el.getAwayTeam().equals(homeTeam)
-                        || el.getAwayTeam().equals(awayTeam))
+                .filter(el -> el.getHomeTeam().equalsIgnoreCase(homeTeam)
+                        || el.getHomeTeam().equalsIgnoreCase(awayTeam)
+                        || el.getAwayTeam().equalsIgnoreCase(homeTeam)
+                        || el.getAwayTeam().equalsIgnoreCase(awayTeam))
                 .findAny();
 
         if (alreadyActiveMatch.isPresent()) {

@@ -54,14 +54,14 @@ class ScoreboardTest {
         }
 
         @Test
-        void shouldSanitiseTeamNamesOnGameStart() {
+        void shouldNormalizeTeamNamesOnGameStart() {
             Scoreboard scoreboard = new Scoreboard();
             scoreboard.startGame(" CanAdA", " BrazIl ");
 
             List<Match> activeMatches = scoreboard.getActiveMatches();
             assertEquals(1, activeMatches.size());
-            assertEquals("canada", activeMatches.get(0).getHomeTeam());
-            assertEquals("brazil", activeMatches.get(0).getAwayTeam());
+            assertEquals("Canada", activeMatches.get(0).getHomeTeam());
+            assertEquals("Brazil", activeMatches.get(0).getAwayTeam());
         }
 
         @Test

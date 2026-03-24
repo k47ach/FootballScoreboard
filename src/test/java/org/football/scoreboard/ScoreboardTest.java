@@ -16,6 +16,13 @@ class ScoreboardTest {
     private static final String CANADA = "Canada";
     private static final String SPAIN = "Spain";
     private static final String BRAZIL = "Brazil";
+    private static final String GERMANY = "Germany";
+    private static final String FRANCE = "France";
+    private static final String URUGUAY = "Uruguay";
+    private static final String ITALY = "Italy";
+    private static final String ARGENTINA = "Argentina";
+    private static final String AUSTRALIA = "Australia";
+
 
     @Nested
     class StartGameTests {
@@ -277,6 +284,31 @@ class ScoreboardTest {
             assertEquals(2, summary.size());
             assertEquals("Spain 0 - Brazil 0", summary.get(0));
             assertEquals("Mexico 0 - Canada 0", summary.get(1));
+        }
+
+        @Test
+        void shouldShowSummaryCorrectlyBasedOnTeamScoresAndRecency() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame(MEXICO, CANADA);
+            scoreboard.startGame(SPAIN, BRAZIL);
+            scoreboard.startGame(GERMANY, FRANCE);
+            scoreboard.startGame(URUGUAY, ITALY);
+            scoreboard.startGame(ARGENTINA, AUSTRALIA);
+
+            scoreboard.updateScore(MEXICO, 0, CANADA, 5);
+            scoreboard.updateScore(SPAIN, 10, BRAZIL, 2);
+            scoreboard.updateScore(GERMANY, 2, FRANCE, 2);
+            scoreboard.updateScore(URUGUAY, 6, ITALY, 6);
+            scoreboard.updateScore(ARGENTINA, 3, AUSTRALIA, 1);
+
+            List<String> summary = scoreboard.getSummary();
+
+            assertEquals(5, summary.size());
+            assertEquals("Uruguay 6 - Italy 6", summary.get(0));
+            assertEquals("Spain 10 - Brazil 2", summary.get(1));
+            assertEquals("Mexico 0 - Canada 5", summary.get(2));
+            assertEquals("Argentina 3 - Australia 1", summary.get(3));
+            assertEquals("Germany 2 - France 2", summary.get(4));
         }
     }
 }

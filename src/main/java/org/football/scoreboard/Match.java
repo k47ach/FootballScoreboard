@@ -36,6 +36,10 @@ public class Match {
         this.awayTeamScore = awayTeamScore;
     }
 
+    public int getScoreSum() {
+        return this.homeTeamScore + this.awayTeamScore;
+    }
+
     @Override
     public String toString() {
         return homeTeam + " " + homeTeamScore + " - " + awayTeam + " " + awayTeamScore;

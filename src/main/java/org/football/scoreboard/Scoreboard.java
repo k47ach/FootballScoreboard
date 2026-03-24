@@ -1,9 +1,6 @@
 package org.football.scoreboard;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class Scoreboard {
     private final LinkedHashMap<String, Match> activeMatches = new LinkedHashMap<>();
@@ -47,6 +44,7 @@ public class Scoreboard {
         Collections.reverse(activeMatchesList);
 
         return activeMatchesList.stream()
+                .sorted(Comparator.comparing(Match::getScoreSum).reversed())
                 .map(Match::toString)
                 .toList();
     }

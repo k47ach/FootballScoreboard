@@ -88,4 +88,23 @@ class ScoreboardTest {
         assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception1.getMessage());
         assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception2.getMessage());
     }
+
+    @Test
+    void shouldNotStartGameIfTeamAlreadyActiveInAnotherGameIgnoreCase() {
+        Scoreboard scoreboard = new Scoreboard();
+        scoreboard.startGame(MEXICO, CANADA);
+
+        Exception exception1 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.startGame("mexico", BRAZIL)
+        );
+
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            scoreboard.startGame(SPAIN, "canada");
+        });
+
+        List<Match> activeMatches = scoreboard.getActiveMatches();
+        assertEquals(1, activeMatches.size());
+        assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception1.getMessage());
+        assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception2.getMessage());
+    }
 }

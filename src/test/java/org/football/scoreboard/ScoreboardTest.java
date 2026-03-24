@@ -262,4 +262,21 @@ class ScoreboardTest {
             assertEquals(NEGATIVE_SCORE_NOT_ALLOWED_ERROR_MESSAGE, exception2.getMessage());
         }
     }
+
+    @Nested
+    class getSummaryTests {
+
+        @Test
+        void shouldShowSummaryCorrectlyForGamesWithDefaultScores() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame(MEXICO, CANADA);
+            scoreboard.startGame(SPAIN, BRAZIL);
+
+            List<String> summary = scoreboard.getSummary();
+
+            assertEquals(2, summary.size());
+            assertEquals("Spain 0 - Brazil 0", summary.get(0));
+            assertEquals("Mexico 0 - Canada 0", summary.get(1));
+        }
+    }
 }

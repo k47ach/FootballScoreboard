@@ -177,4 +177,24 @@ class ScoreboardTest {
             assertEquals(MATCH_NOT_FOUND_ERROR_MESSAGE, exception.getMessage());
         }
     }
+
+    @Nested
+    class UpdateScoreTests {
+        @Test
+        void shouldUpdateGameScoresCorrectly() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame(MEXICO, CANADA);
+            scoreboard.startGame(SPAIN, BRAZIL);
+
+            scoreboard.updateScore(MEXICO, 1, CANADA, 0);
+            scoreboard.updateScore(SPAIN, 3, BRAZIL, 4);
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertEquals(2, activeMatches.size());
+            assertEquals(1, activeMatches.get(0).getHomeTeamScore());
+            assertEquals(0, activeMatches.get(0).getAwayTeamScore());
+            assertEquals(3, activeMatches.get(1).getHomeTeamScore());
+            assertEquals(4, activeMatches.get(1).getAwayTeamScore());
+        }
+    }
 }

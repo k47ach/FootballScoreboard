@@ -34,4 +34,8 @@ public class ScoreboardValidator {
             throw new IllegalArgumentException(MATCH_NOT_FOUND_ERROR_MESSAGE);
         }
     }
+
+    private ScoreboardValidator() {
+        // Object instantiation not needed for this validator class
+    }
 }

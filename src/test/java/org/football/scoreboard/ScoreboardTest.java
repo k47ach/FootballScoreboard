@@ -82,13 +82,23 @@ class ScoreboardTest {
             );
 
             Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
-                scoreboard.startGame(SPAIN, CANADA);
+                    scoreboard.startGame(SPAIN, CANADA);
+            });
+
+            Exception exception3 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.startGame(SPAIN, MEXICO)
+            );
+
+            Exception exception4 = assertThrows(IllegalArgumentException.class, () -> {
+                scoreboard.startGame(CANADA, BRAZIL);
             });
 
             List<Match> activeMatches = scoreboard.getActiveMatches();
             assertEquals(1, activeMatches.size());
             assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception1.getMessage());
             assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception2.getMessage());
+            assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception3.getMessage());
+            assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception4.getMessage());
         }
 
         @Test

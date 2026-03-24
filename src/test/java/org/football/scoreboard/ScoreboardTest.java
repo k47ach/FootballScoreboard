@@ -224,5 +224,21 @@ class ScoreboardTest {
             assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception3.getMessage());
             assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception4.getMessage());
         }
+
+        @Test
+        void shouldThrowExceptionWhenUpdatingNotExistingMatch() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame(MEXICO, CANADA);
+
+            Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.updateScore(CANADA, 1, MEXICO, 1)
+            );
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertEquals(1, activeMatches.size());
+            assertEquals(0, activeMatches.get(0).getHomeTeamScore());
+            assertEquals(0, activeMatches.get(0).getAwayTeamScore());
+            assertEquals(MATCH_NOT_FOUND_ERROR_MESSAGE, exception.getMessage());
+        }
     }
 }

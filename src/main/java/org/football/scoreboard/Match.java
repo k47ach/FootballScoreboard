@@ -3,6 +3,8 @@ package org.football.scoreboard;
 public class Match {
     private final String homeTeam;
     private final String awayTeam;
+    private int homeTeamScore;
+    private int awayTeamScore;
 
     public Match(String homeTeam, String awayTeam) {
         this.homeTeam = homeTeam;
@@ -15,5 +17,13 @@ public class Match {
 
     public String getAwayTeam() {
         return awayTeam;
+    }
+
+    public int getHomeTeamScore() {
+        return homeTeamScore;
+    }
+
+    public int getAwayTeamScore() {
+        return awayTeamScore;
     }
 }

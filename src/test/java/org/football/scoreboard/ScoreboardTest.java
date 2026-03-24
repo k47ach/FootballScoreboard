@@ -6,6 +6,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.football.scoreboard.ErrorMessageConstants.EMPTY_TEAM_NAME_ERROR_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ScoreboardTest {
@@ -14,7 +15,6 @@ class ScoreboardTest {
     private static final String CANADA = "Canada";
     private static final String SPAIN = "Spain";
     private static final String BRAZIL = "Brazil";
-    private static final String EMPTY_TEAM_NAME_ERROR_MESSAGE = "Team name can not be empty";
 
     @Test
     void shouldStartGamesCorrectly() {

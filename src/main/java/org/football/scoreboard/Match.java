@@ -2,6 +2,8 @@ package org.football.scoreboard;
 
 import org.apache.commons.lang3.StringUtils;
 
+import static org.football.scoreboard.ErrorMessageConstants.EMPTY_TEAM_NAME_ERROR_MESSAGE;
+
 public class Match {
     private final String homeTeam;
     private final String awayTeam;
@@ -10,7 +12,7 @@ public class Match {
 
     public Match(String homeTeam, String awayTeam) {
         if (StringUtils.isEmpty(homeTeam) || StringUtils.isEmpty(awayTeam)) {
-            throw new IllegalArgumentException("Team name can not be empty");
+            throw new IllegalArgumentException(EMPTY_TEAM_NAME_ERROR_MESSAGE);
         }
 
         this.homeTeam = homeTeam;

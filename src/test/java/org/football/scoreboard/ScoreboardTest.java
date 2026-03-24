@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ScoreboardTest {
 
@@ -12,6 +14,7 @@ class ScoreboardTest {
     private static final String CANADA = "Canada";
     private static final String SPAIN = "Spain";
     private static final String BRAZIL = "Brazil";
+    private static final String EMPTY_TEAM_NAME_ERROR_MESSAGE = "Team name can not be empty";
 
     @Test
     void shouldStartGamesCorrectly() {
@@ -39,5 +42,30 @@ class ScoreboardTest {
         assertEquals(1, activeMatches.size());
         assertEquals(0, activeMatches.get(0).getHomeTeamScore());
         assertEquals(0, activeMatches.get(0).getAwayTeamScore());
+    }
+
+    @Test
+    void shouldNotStartGameIfTeamNameIsEmpty() {
+        Scoreboard scoreboard = new Scoreboard();
+
+        Exception exception1 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.startGame(MEXICO, "")
+        );
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.startGame(MEXICO, null)
+        );
+        Exception exception3 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.startGame("", CANADA)
+        );
+        Exception exception4 = assertThrows(IllegalArgumentException.class, () ->
+                scoreboard.startGame(null, CANADA)
+        );
+
+        List<Match> activeMatches = scoreboard.getActiveMatches();
+        assertTrue(activeMatches.isEmpty());
+        assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception1.getMessage());
+        assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception2.getMessage());
+        assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception3.getMessage());
+        assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception4.getMessage());
     }
 }

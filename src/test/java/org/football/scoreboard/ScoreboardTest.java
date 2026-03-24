@@ -82,7 +82,7 @@ class ScoreboardTest {
             );
 
             Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
-                    scoreboard.startGame(SPAIN, CANADA);
+                scoreboard.startGame(SPAIN, CANADA);
             });
 
             Exception exception3 = assertThrows(IllegalArgumentException.class, () ->
@@ -195,6 +195,34 @@ class ScoreboardTest {
             assertEquals(0, activeMatches.get(0).getAwayTeamScore());
             assertEquals(3, activeMatches.get(1).getHomeTeamScore());
             assertEquals(4, activeMatches.get(1).getAwayTeamScore());
+        }
+
+        @Test
+        void shouldThrowExceptionWhenUpdatingGameScoreWithEmptyNames() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame(MEXICO, CANADA);
+
+            Exception exception1 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.updateScore(MEXICO, 0, "", 0)
+            );
+            Exception exception2 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.updateScore(MEXICO, 0, null, 1)
+            );
+            Exception exception3 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.updateScore("", 1, CANADA, 0)
+            );
+            Exception exception4 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.updateScore("", 1, CANADA, 1)
+            );
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertEquals(1, activeMatches.size());
+            assertEquals(0, activeMatches.get(0).getHomeTeamScore());
+            assertEquals(0, activeMatches.get(0).getAwayTeamScore());
+            assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception1.getMessage());
+            assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception2.getMessage());
+            assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception3.getMessage());
+            assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception4.getMessage());
         }
     }
 }

@@ -255,12 +255,29 @@ class ScoreboardTest {
         }
 
         @Test
+        void shouldUpdateGameScoresCorrectlyDespiteInconsistentTrimmingAndLetterCase() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame("mExIcO ", "  canada");
+            scoreboard.startGame(SPAIN, BRAZIL);
+
+            scoreboard.updateScore(MEXICO, 1, CANADA, 2);
+            scoreboard.updateScore(" sPAIn ", 3,  " braZIl  ", 4);
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertEquals(2, activeMatches.size());
+            assertEquals(1, activeMatches.get(0).getHomeTeamScore());
+            assertEquals(2, activeMatches.get(0).getAwayTeamScore());
+            assertEquals(3, activeMatches.get(1).getHomeTeamScore());
+            assertEquals(4, activeMatches.get(1).getAwayTeamScore());
+        }
+
+        @Test
         void shouldThrowExceptionWhenUpdatingGameScoreWithEmptyNames() {
             Scoreboard scoreboard = new Scoreboard();
             scoreboard.startGame(MEXICO, CANADA);
 
             Exception exception1 = assertThrows(IllegalArgumentException.class, () ->
-                    scoreboard.updateScore(MEXICO, 0, "", 0)
+                    scoreboard.updateScore(MEXICO, 0, "", 2)
             );
             Exception exception2 = assertThrows(IllegalArgumentException.class, () ->
                     scoreboard.updateScore(MEXICO, 0, null, 1)

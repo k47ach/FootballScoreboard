@@ -31,6 +31,12 @@ public class ScoreboardValidator {
         }
     }
 
+    public static void validateIfTeamNamesAreDifferent(String homeTeam, String awayTeam) {
+        if (homeTeam.equals(awayTeam)) {
+            throw new IllegalArgumentException(SAME_NAME_ERROR_MESSAGE);
+        }
+    }
+
     public static void validateIfNameContainsOnlyLetters(String homeTeam, String awayTeam) {
         if (!homeTeam.matches(VALID_TEAM_NAME_REGEX) || !awayTeam.matches(VALID_TEAM_NAME_REGEX)) {
             throw new IllegalArgumentException(ILLEGAL_CHARACTER_ERROR_MESSAGE);

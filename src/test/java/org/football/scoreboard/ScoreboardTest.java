@@ -107,4 +107,18 @@ class ScoreboardTest {
         assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception1.getMessage());
         assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception2.getMessage());
     }
+
+    @Test
+    void shouldFinishGamesCorrectly() {
+        Scoreboard scoreboard = new Scoreboard();
+        scoreboard.startGame(MEXICO, CANADA);
+        scoreboard.startGame(SPAIN, BRAZIL);
+
+        scoreboard.finishGame(MEXICO, CANADA);
+
+        List<Match> activeMatches = scoreboard.getActiveMatches();
+        assertEquals(1, activeMatches.size());
+        assertEquals(SPAIN, activeMatches.get(0).getHomeTeam());
+        assertEquals(BRAZIL, activeMatches.get(0).getAwayTeam());
+    }
 }

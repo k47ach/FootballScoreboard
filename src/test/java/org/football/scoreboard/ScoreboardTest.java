@@ -149,13 +149,18 @@ class ScoreboardTest {
         void shouldNotStartGameWithEqualTeamNames() {
             Scoreboard scoreboard = new Scoreboard();
 
-            Exception exception = assertThrows(IllegalArgumentException.class, () ->
+            Exception exception1 = assertThrows(IllegalArgumentException.class, () ->
                     scoreboard.startGame(MEXICO, MEXICO)
+            );
+
+            Exception exception2 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.startGame(MEXICO, "mexico")
             );
 
             List<Match> activeMatches = scoreboard.getActiveMatches();
             assertTrue(activeMatches.isEmpty());
-            assertEquals(SAME_NAME_ERROR_MESSAGE, exception.getMessage());
+            assertEquals(SAME_NAME_ERROR_MESSAGE, exception1.getMessage());
+            assertEquals(SAME_NAME_ERROR_MESSAGE, exception2.getMessage());
         }
     }
 

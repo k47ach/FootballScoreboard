@@ -240,5 +240,26 @@ class ScoreboardTest {
             assertEquals(0, activeMatches.get(0).getAwayTeamScore());
             assertEquals(MATCH_NOT_FOUND_ERROR_MESSAGE, exception.getMessage());
         }
+
+        @Test
+        void shouldThrowExceptionWhenUpdatingScoresWithNegativeValues() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame(MEXICO, CANADA);
+
+            Exception exception1 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.updateScore(MEXICO, -5, CANADA, 0)
+            );
+
+            Exception exception2 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.updateScore(MEXICO, 0, CANADA, -5)
+            );
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertEquals(1, activeMatches.size());
+            assertEquals(0, activeMatches.get(0).getHomeTeamScore());
+            assertEquals(0, activeMatches.get(0).getAwayTeamScore());
+            assertEquals(NEGATIVE_SCORE_NOT_ALLOWED_ERROR_MESSAGE, exception1.getMessage());
+            assertEquals(NEGATIVE_SCORE_NOT_ALLOWED_ERROR_MESSAGE, exception2.getMessage());
+        }
     }
 }

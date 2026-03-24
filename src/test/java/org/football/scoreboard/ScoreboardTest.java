@@ -153,5 +153,19 @@ class ScoreboardTest {
             assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception3.getMessage());
             assertEquals(EMPTY_TEAM_NAME_ERROR_MESSAGE, exception4.getMessage());
         }
+
+        @Test
+        void shouldThrowExceptionWhenFinishingNotExistingGame() {
+            Scoreboard scoreboard = new Scoreboard();
+            scoreboard.startGame(MEXICO, CANADA);
+
+            Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.finishGame(CANADA, MEXICO)
+            );
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertEquals(1, activeMatches.size());
+            assertEquals(MATCH_NOT_FOUND_ERROR_MESSAGE, exception.getMessage());
+        }
     }
 }

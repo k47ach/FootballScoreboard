@@ -8,26 +8,31 @@ import static junit.framework.Assert.assertEquals;
 
 class ScoreboardTest {
 
+    private static final String MEXICO = "Mexico";
+    private static final String CANADA = "Canada";
+    private static final String SPAIN = "Spain";
+    private static final String BRAZIL = "Brazil";
+
     @Test
     void shouldStartGamesCorrectly() {
         Scoreboard scoreboard = new Scoreboard();
 
-        scoreboard.startGame("Mexico", "Canada");
-        scoreboard.startGame("Spain", "Brazil");
+        scoreboard.startGame(MEXICO, CANADA);
+        scoreboard.startGame(SPAIN, BRAZIL);
 
         List<Match> activeMatches = scoreboard.getActiveMatches();
 
         assertEquals(2, activeMatches.size());
-        assertEquals("Mexico", activeMatches.get(0).getHomeTeam());
-        assertEquals("Canada", activeMatches.get(0).getAwayTeam());
-        assertEquals("Spain", activeMatches.get(1).getHomeTeam());
-        assertEquals("Brazil", activeMatches.get(1).getAwayTeam());
+        assertEquals(MEXICO, activeMatches.get(0).getHomeTeam());
+        assertEquals(CANADA, activeMatches.get(0).getAwayTeam());
+        assertEquals(SPAIN, activeMatches.get(1).getHomeTeam());
+        assertEquals(BRAZIL, activeMatches.get(1).getAwayTeam());
     }
 
     @Test
     void shouldStartGameWithDefaultScore() {
         Scoreboard scoreboard = new Scoreboard();
-        scoreboard.startGame("Mexico", "Canada");
+        scoreboard.startGame(MEXICO, CANADA);
 
         List<Match> activeMatches = scoreboard.getActiveMatches();
 

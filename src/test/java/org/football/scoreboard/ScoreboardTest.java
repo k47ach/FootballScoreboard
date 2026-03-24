@@ -2,6 +2,8 @@ package org.football.scoreboard;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static junit.framework.Assert.assertEquals;
 
 class ScoreboardTest {

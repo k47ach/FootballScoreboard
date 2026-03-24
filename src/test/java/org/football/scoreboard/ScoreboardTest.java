@@ -126,6 +126,24 @@ class ScoreboardTest {
             assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception1.getMessage());
             assertEquals(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE, exception2.getMessage());
         }
+
+        @Test
+        void shouldNotStartGameIfTeamNameContainsNonLetterCharacters() {
+            Scoreboard scoreboard = new Scoreboard();
+
+            Exception exception1 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.startGame("@^$#123@($%(aa", CANADA)
+            );
+
+            Exception exception2 = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.startGame(MEXICO, "@^$#@131($%(aa")
+            );
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertTrue(activeMatches.isEmpty());
+            assertEquals(ILLEGAL_CHARACTER_ERROR_MESSAGE, exception1.getMessage());
+            assertEquals(ILLEGAL_CHARACTER_ERROR_MESSAGE, exception2.getMessage());
+        }
     }
 
     @Nested

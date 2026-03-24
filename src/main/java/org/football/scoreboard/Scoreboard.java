@@ -1,16 +1,15 @@
 package org.football.scoreboard;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Optional;
-
-import static org.football.scoreboard.ErrorMessageConstants.TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE;
 
 public class Scoreboard {
-    private final List<Match> activeMatches = new ArrayList<>();
+    private final LinkedHashMap<String, Match> activeMatches = new LinkedHashMap<>();
 
     public List<Match> getActiveMatches() {
-        return activeMatches;
+        return activeMatches.values()
+                .stream()
+                .toList();
     }
 
     public void startGame(String homeTeam, String awayTeam) {
@@ -18,6 +17,10 @@ public class Scoreboard {
 
         ScoreboardValidator.validateIfTeamAlreadyAssigned(activeMatches, match);
 
-        activeMatches.add(match);
+        activeMatches.put(homeTeam + " - " + awayTeam, match);
+    }
+
+    public void finishGame(String homeTeam, String awayTeam) {
+        activeMatches.remove(homeTeam + " - " + awayTeam);
     }
 }

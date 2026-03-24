@@ -36,6 +36,12 @@ public class ScoreboardValidator {
         }
     }
 
+    public static void validateIfMatchScoreNotNegative(int homeTeamScore, int awayTeamScore) {
+        if (homeTeamScore < 0 || awayTeamScore < 0) {
+            throw new IllegalArgumentException(NEGATIVE_SCORE_NOT_ALLOWED_ERROR_MESSAGE);
+        }
+    }
+
     private ScoreboardValidator() {
         // Object instantiation not needed for this validator class
     }

@@ -32,6 +32,7 @@ public class Scoreboard {
     public void updateScore(String homeTeam, int homeTeamScore, String awayTeam, int awayTeamScore) {
         ScoreboardValidator.validateIfTeamNamesNotEmpty(homeTeam, awayTeam);
         ScoreboardValidator.validateIfMatchExists(activeMatches, homeTeam, awayTeam);
+        ScoreboardValidator.validateIfMatchScoreNotNegative(homeTeamScore, awayTeamScore);
 
         String matchKey = MatchKeyProvider.provide(homeTeam, awayTeam);
         Match match = activeMatches.get(matchKey);

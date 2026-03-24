@@ -144,6 +144,19 @@ class ScoreboardTest {
             assertEquals(ILLEGAL_CHARACTER_ERROR_MESSAGE, exception1.getMessage());
             assertEquals(ILLEGAL_CHARACTER_ERROR_MESSAGE, exception2.getMessage());
         }
+
+        @Test
+        void shouldNotStartGameWithEqualTeamNames() {
+            Scoreboard scoreboard = new Scoreboard();
+
+            Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                    scoreboard.startGame(MEXICO, MEXICO)
+            );
+
+            List<Match> activeMatches = scoreboard.getActiveMatches();
+            assertTrue(activeMatches.isEmpty());
+            assertEquals(SAME_NAME_ERROR_MESSAGE, exception.getMessage());
+        }
     }
 
     @Nested

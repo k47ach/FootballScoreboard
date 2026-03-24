@@ -28,4 +28,11 @@ public class Scoreboard {
         String matchKey = MatchKeyProvider.provide(homeTeam, awayTeam);
         activeMatches.remove(matchKey);
     }
+
+    public void updateScore(String homeTeam, int homeTeamScore, String awayTeam, int awayTeamScore) {
+        String matchKey = MatchKeyProvider.provide(homeTeam, awayTeam);
+        Match match = activeMatches.get(matchKey);
+        match.setHomeTeamScore(homeTeamScore);
+        match.setAwayTeamScore(awayTeamScore);
+    }
 }

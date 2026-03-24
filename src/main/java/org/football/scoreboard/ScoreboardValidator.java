@@ -29,8 +29,9 @@ public class ScoreboardValidator {
         }
     }
 
-    public static void validateIfMatchExists(Map<String, Match> activeMatches, String homeTeam, String activeTeam) {
-        if (!activeMatches.containsKey(homeTeam + " - " + activeTeam)) {
+    public static void validateIfMatchExists(Map<String, Match> activeMatches, String homeTeam, String awayTeam) {
+        String matchKey = MatchKeyProvider.provide(homeTeam, awayTeam);
+        if (!activeMatches.containsKey(matchKey)) {
             throw new IllegalArgumentException(MATCH_NOT_FOUND_ERROR_MESSAGE);
         }
     }

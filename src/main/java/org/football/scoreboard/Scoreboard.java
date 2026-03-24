@@ -17,15 +17,15 @@ public class Scoreboard {
         ScoreboardValidator.validateIfTeamAlreadyAssigned(activeMatches, homeTeam, awayTeam);
 
         Match match = new Match(homeTeam, awayTeam);
-
-
-        activeMatches.put(homeTeam + " - " + awayTeam, match);
+        String matchKey = MatchKeyProvider.provide(homeTeam, awayTeam);
+        activeMatches.put(matchKey, match);
     }
 
     public void finishGame(String homeTeam, String awayTeam) {
         ScoreboardValidator.validateIfTeamNamesNotEmpty(homeTeam, awayTeam);
         ScoreboardValidator.validateIfMatchExists(activeMatches, homeTeam, awayTeam);
 
-        activeMatches.remove(homeTeam + " - " + awayTeam);
+        String matchKey = MatchKeyProvider.provide(homeTeam, awayTeam);
+        activeMatches.remove(matchKey);
     }
 }

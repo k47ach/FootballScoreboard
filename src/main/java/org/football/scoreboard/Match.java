@@ -1,8 +1,6 @@
 package org.football.scoreboard;
 
 
-import org.apache.commons.lang3.StringUtils;
-
 public class Match {
     private final String homeTeam;
     private final String awayTeam;
@@ -10,8 +8,8 @@ public class Match {
     private int awayTeamScore;
 
     public Match(String homeTeam, String awayTeam) {
-        this.homeTeam = StringUtils.capitalize(homeTeam.toLowerCase().trim());
-        this.awayTeam = StringUtils.capitalize(awayTeam.toLowerCase().trim());
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
     }
 
     public String getHomeTeam() {

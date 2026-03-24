@@ -13,11 +13,15 @@ public class Scoreboard {
 
     public void startGame(String homeTeam, String awayTeam) {
         ScoreboardValidator.validateIfTeamNamesNotEmpty(homeTeam, awayTeam);
-        ScoreboardValidator.validateIfTeamNamesAreDifferent(homeTeam, awayTeam);
-        ScoreboardValidator.validateIfNameContainsOnlyLetters(homeTeam, awayTeam);
-        ScoreboardValidator.validateIfTeamAlreadyAssigned(activeMatches, homeTeam, awayTeam);
 
-        Match match = new Match(homeTeam, awayTeam);
+        String homeTeamNormalized = TeamNameNormalizationUtil.normalize(homeTeam);
+        String awayTeamNormalized = TeamNameNormalizationUtil.normalize(awayTeam);
+
+        ScoreboardValidator.validateIfTeamNamesAreDifferent(homeTeamNormalized, awayTeamNormalized);
+        ScoreboardValidator.validateIfNameContainsOnlyLetters(homeTeamNormalized, awayTeamNormalized);
+        ScoreboardValidator.validateIfTeamAlreadyAssigned(activeMatches, homeTeamNormalized, awayTeamNormalized);
+
+        Match match = new Match(homeTeamNormalized, awayTeamNormalized);
         String matchKey = MatchKeyProvider.provide(homeTeam, awayTeam);
         activeMatches.put(matchKey, match);
     }

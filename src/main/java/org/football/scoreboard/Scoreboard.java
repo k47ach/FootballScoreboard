@@ -16,16 +16,7 @@ public class Scoreboard {
     public void startGame(String homeTeam, String awayTeam) {
         Match match = new Match(homeTeam, awayTeam);
 
-        Optional<Match> alreadyActiveMatch = activeMatches.stream()
-                .filter(el -> el.getHomeTeam().equals(homeTeam)
-                        || el.getHomeTeam().equals(awayTeam)
-                        || el.getAwayTeam().equals(homeTeam)
-                        || el.getAwayTeam().equals(awayTeam))
-                        .findAny();
-
-        if (alreadyActiveMatch.isPresent()) {
-            throw new IllegalArgumentException(TEAM_ALREADY_ASSIGNED_ERROR_MESSAGE);
-        }
+        ScoreboardValidator.validateIfTeamAlreadyAssigned(activeMatches, match);
 
         activeMatches.add(match);
     }

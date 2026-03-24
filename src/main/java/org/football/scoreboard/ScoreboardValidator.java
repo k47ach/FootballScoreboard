@@ -32,7 +32,7 @@ public class ScoreboardValidator {
     }
 
     public static void validateIfTeamNamesAreDifferent(String homeTeam, String awayTeam) {
-        if (homeTeam.equals(awayTeam)) {
+        if (homeTeam.equalsIgnoreCase(awayTeam)) {
             throw new IllegalArgumentException(SAME_NAME_ERROR_MESSAGE);
         }
     }

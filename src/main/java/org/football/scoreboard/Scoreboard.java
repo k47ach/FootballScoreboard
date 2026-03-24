@@ -13,6 +13,7 @@ public class Scoreboard {
 
     public void startGame(String homeTeam, String awayTeam) {
         ScoreboardValidator.validateIfTeamNamesNotEmpty(homeTeam, awayTeam);
+        ScoreboardValidator.validateIfNameContainsOnlyLetters(homeTeam, awayTeam);
         ScoreboardValidator.validateIfTeamAlreadyAssigned(activeMatches, homeTeam, awayTeam);
 
         Match match = new Match(homeTeam, awayTeam);

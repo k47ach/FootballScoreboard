@@ -9,6 +9,8 @@ import static org.football.scoreboard.ErrorMessageConstants.*;
 
 public class ScoreboardValidator {
 
+    private static final String VALID_TEAM_NAME_REGEX = "[a-zA-Z ]+";
+
     public static void validateIfTeamAlreadyAssigned(Map<String, Match> activeMatches, String homeTeam, String awayTeam) {
         Optional<Match> alreadyActiveMatch = activeMatches.values()
                 .stream()
@@ -26,6 +28,12 @@ public class ScoreboardValidator {
     public static void validateIfTeamNamesNotEmpty(String homeTeam, String awayTeam) {
         if (StringUtils.isEmpty(homeTeam) || StringUtils.isEmpty(awayTeam)) {
             throw new IllegalArgumentException(EMPTY_TEAM_NAME_ERROR_MESSAGE);
+        }
+    }
+
+    public static void validateIfNameContainsOnlyLetters(String homeTeam, String awayTeam) {
+        if (!homeTeam.matches(VALID_TEAM_NAME_REGEX) || !awayTeam.matches(VALID_TEAM_NAME_REGEX)) {
+            throw new IllegalArgumentException(ILLEGAL_CHARACTER_ERROR_MESSAGE);
         }
     }
 

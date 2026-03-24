@@ -1,5 +1,7 @@
 package org.football.scoreboard;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -38,5 +40,14 @@ public class Scoreboard {
         Match match = activeMatches.get(matchKey);
         match.setHomeTeamScore(homeTeamScore);
         match.setAwayTeamScore(awayTeamScore);
+    }
+
+    public List<String> getSummary() {
+        List<Match> activeMatchesList = new ArrayList<>(activeMatches.values());
+        Collections.reverse(activeMatchesList);
+
+        return activeMatchesList.stream()
+                .map(Match::toString)
+                .toList();
     }
 }
